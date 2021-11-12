@@ -28,15 +28,15 @@ const LyricInput = () => {
     <Formik
       initialValues={{ lyric: 'Enter Lyrics Here' }}
       onSubmit={(values, actions) => {
-        setActiveLyrics((oldLyrics) => [...oldLyrics, values.name])
+        setActiveLyrics((oldLyrics) => [...oldLyrics, values.lyric])
       }}
     >
       {(props) => (
         <Form
           //   onSubmit={(d) => console.log(d)}
-          onFocus={(e) => {
-            props.setFieldValue('lyric', '')
-          }}
+          // onFocus={(e) => {
+          //   props.setFieldValue('lyric', '')
+          // }}
           style={{
             // border: '2px solid orange',
             borderRadius: '5px',
@@ -52,12 +52,12 @@ const LyricInput = () => {
           }}
         >
           <Field
-            style={{ border: '3px solid red' }}
+            // style={{ border: '3px solid red' }}
             name="lyric"
             validate={validateLyrics}
           >
             {({ field, form }) => (
-              <FormControl isInvalid={form.errors.name && form.touched.name}>
+              <FormControl isInvalid={form.errors.lyric && form.touched.lyric}>
                 {/* <FormLabel htmlFor="name">First name</FormLabel> */}
                 <Input
                   //   bg="teal.300"
@@ -68,7 +68,7 @@ const LyricInput = () => {
                   {...field}
                   id="lyric"
                   placeholder="Lyric"
-                  border={'4px solid red'}
+                  // border={'4px solid red'}
                   borderStyle={'none'}
                   focusBorderColor="none"
                   borderColor="orange"

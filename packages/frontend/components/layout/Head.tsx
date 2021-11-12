@@ -50,7 +50,7 @@ export const Head = ({
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
       <meta name="twitter:image" content={meta.image} />
-      <body style={{ backgroundColor: 'white' }} />
+      {/* <body style={{ backgroundColor: 'white' }} /> */}
     </NextHead>
   )
 }
