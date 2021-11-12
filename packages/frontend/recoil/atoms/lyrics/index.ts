@@ -1,15 +1,13 @@
 import { atom } from 'recoil'
-import { Atoms } from '@recoil/constants'
+import { Atoms } from '../../constants'
 
-export interface BlockType {
-  id?: string
-  index: string
-  uuid: string
-  title: string
-  protocol: string
-}
+// export interface LyricType {
+//   id: string
+//   SongTitle: string
+//   protocol: string
+// }
 
-export const blocks = atom({
-  key: Atoms.Blocks,
-  default: [] as BlockType[],
+export const Lyrics = atom({
+  key: Atoms.Lyrics,
+  default: [],
 })

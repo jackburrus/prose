@@ -9,9 +9,11 @@ import {
 import { css } from '@emotion/react'
 import { Field, Form, Formik } from 'formik'
 import { useState } from 'react'
-
+import { useRecoilState } from 'recoil'
+import { Lyrics } from '../recoil/atoms/lyrics'
 const LyricInput = () => {
   const [localLyrics, setLocalLyrics] = useState([])
+  const [activeLyrics, setActiveLyrics] = useRecoilState(Lyrics)
 
   function validateLyrics(value) {
     let error
@@ -26,7 +28,7 @@ const LyricInput = () => {
     <Formik
       initialValues={{ name: 'Enter Lyrics Here' }}
       onSubmit={(values, actions) => {
-        setLocalLyrics((oldLyrics) => [...oldLyrics, values.name])
+        setActiveLyrics((oldLyrics) => [...oldLyrics, values.name])
       }}
     >
       {(props) => (
