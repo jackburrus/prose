@@ -1,4 +1,4 @@
-import { Box, Text } from '@chakra-ui/react'
+import { Box, calc, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 import { Layout } from '../components/layout/Layout'
 import LyricInput from '../components/LyricInput'
@@ -11,15 +11,22 @@ const WritePage = (props: Props) => {
 
   return (
     <Layout>
-      <Box maxWidth="container.xl" bg={'white'}>
-        <LyricInput />
-      </Box>
-      <Box border={'1px solid red'} h={'500px'} w={'500px'}>
-        {activeLyrics.map((lyric, index) => (
-          <Text color={'black'} key={index}>
-            {lyric}
-          </Text>
-        ))}
+      <Box border={'1px solid red'} h={'90vh'}>
+        <Box
+          mr={'100px'}
+          ml={'100px'}
+          maxWidth="container.xl"
+          border={'1px solid red'}
+        >
+          {activeLyrics.map((lyric, index) => (
+            <Text color={'black'} key={index}>
+              {lyric}
+            </Text>
+          ))}
+        </Box>
+        <Box border={'1px solid green'} maxWidth="container.xl" bg={'white'}>
+          <LyricInput />
+        </Box>
       </Box>
     </Layout>
   )

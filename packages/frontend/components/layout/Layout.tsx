@@ -161,7 +161,9 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
           </SimpleGrid>
         </Container>
       </header>
-      <main style={{ backgroundColor: 'white', width: '100vw' }}>
+      <main
+        style={{ backgroundColor: 'white', width: '100vw', display: 'flex' }}
+      >
         <Container maxWidth="container.xl" bg="white">
           {error && (
             <Alert status="error" mb="8">
