@@ -19,7 +19,8 @@ import {
 import { useEthers, useNotifications } from '@usedapp/core'
 import blockies from 'blockies-ts'
 import NextLink from 'next/link'
-import React from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 import { getErrorMessage } from '../../lib/utils'
 import { Balance } from '../Balance'
 import { ConnectWallet } from '../ConnectWallet'
@@ -61,7 +62,7 @@ interface LayoutProps {
 export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
   const { account, deactivate, error } = useEthers()
   const { notifications } = useNotifications()
-
+  const router = useRouter()
   let blockieImageSrc
   if (typeof window !== 'undefined') {
     blockieImageSrc = blockies.create({ seed: account }).toDataURL()
@@ -70,8 +71,8 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
   return (
     <>
       <Head customMeta={customMeta} />
-      <header>
-        <Container maxWidth="container.xl">
+      <header style={{ backgroundColor: 'white', width: '100vw' }}>
+        <Container maxWidth="container.xl" width={'100vw'} bg="white">
           <SimpleGrid
             columns={[1, 1, 1, 2]}
             alignItems="center"
@@ -79,19 +80,55 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
             py="8"
           >
             <Flex py={[4, null, null, 0]}>
+              <NextLink href="/Write" passHref>
+                <Link px="4" py="1">
+                  <Text
+                    fontSize={'3xl'}
+                    fontFamily="sans-serif"
+                    letterSpacing={'0.05em'}
+                    color={router.pathname === '/Write' ? 'black' : 'grey'}
+                  >
+                    Write
+                  </Text>
+                </Link>
+              </NextLink>
               <NextLink href="/" passHref>
                 <Link px="4" py="1">
-                  Home
+                  <Text
+                    fontSize={'3xl'}
+                    fontFamily="sans-serif"
+                    letterSpacing={'0.05em'}
+                    color={router.pathname === '/' ? 'black' : 'grey'}
+                  >
+                    Explore
+                  </Text>
                 </Link>
               </NextLink>
-              <NextLink href="/graph-example" passHref>
+
+              <NextLink href="/Holdings" passHref>
                 <Link px="4" py="1">
-                  Graph Example
+                  <Text
+                    fontSize={'3xl'}
+                    fontFamily="sans-serif"
+                    letterSpacing={'0.05em'}
+                    color={router.pathname === '/Holdings' ? 'black' : 'grey'}
+                  >
+                    Holdings
+                  </Text>
                 </Link>
               </NextLink>
-              <NextLink href="/signature-example" passHref>
+              <NextLink href="/Leaderboard" passHref>
                 <Link px="4" py="1">
-                  Signature Example
+                  <Text
+                    fontSize={'3xl'}
+                    fontFamily="sans-serif"
+                    letterSpacing={'0.05em'}
+                    color={
+                      router.pathname === '/Leaderboard' ? 'black' : 'grey'
+                    }
+                  >
+                    Leaderboard
+                  </Text>
                 </Link>
               </NextLink>
             </Flex>
@@ -105,7 +142,7 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
                 <Image ml="4" src={blockieImageSrc} alt="blockie" />
                 <Menu placement="bottom-end">
                   <MenuButton as={Button} ml="4">
-                    {truncateHash(account)}
+                    <Text color="black">{truncateHash(account)}</Text>
                   </MenuButton>
                   <MenuList>
                     <MenuItem
@@ -124,8 +161,8 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
           </SimpleGrid>
         </Container>
       </header>
-      <main>
-        <Container maxWidth="container.xl">
+      <main style={{ backgroundColor: 'white', width: '100vw' }}>
+        <Container maxWidth="container.xl" bg="white">
           {error && (
             <Alert status="error" mb="8">
               <AlertIcon />
@@ -162,14 +199,6 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
           })}
         </Container>
       </main>
-      <footer>
-        <Container mt="8" py="8" maxWidth="container.xl">
-          <Text>
-            Built by{' '}
-            <Link href="https://twitter.com/huntarosan">Hunter Chang</Link>
-          </Text>
-        </Container>
-      </footer>
     </>
   )
 }
