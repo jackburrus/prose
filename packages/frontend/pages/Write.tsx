@@ -26,12 +26,12 @@ const WritePage = (props: Props) => {
     }
     setTimeout(() => {
       isSubmitting(false)
-    }, 1000)
+    }, 200)
   }, [controls, submitting])
 
   const inputVariants = {
     slide: { y: 100 },
-    noSlide: { y: 0 },
+    noSlide: { y: 90 },
   }
 
   return (

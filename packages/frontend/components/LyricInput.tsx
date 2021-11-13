@@ -27,7 +27,7 @@ const LyricInput = (props) => {
 
   const handleSubmit = (values, actions) => {
     isSubmitting(true)
-    // setActiveLyrics((oldLyrics) => [...oldLyrics, values.lyric])
+    setActiveLyrics((oldLyrics) => [...oldLyrics, values.lyric])
     actions.setFieldValue('lyric', '')
     // isSubmitting(false)
 
