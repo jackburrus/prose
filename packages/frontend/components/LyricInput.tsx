@@ -11,7 +11,8 @@ import { Field, Form, Formik } from 'formik'
 import { useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { Lyrics } from '../recoil/atoms/lyrics'
-const LyricInput = () => {
+const LyricInput = (props) => {
+  const { isSubmitting } = props
   const [localLyrics, setLocalLyrics] = useState([])
   const [activeLyrics, setActiveLyrics] = useRecoilState(Lyrics)
 
@@ -25,8 +26,14 @@ const LyricInput = () => {
   }
 
   const handleSubmit = (values, actions) => {
+    isSubmitting(true)
     setActiveLyrics((oldLyrics) => [...oldLyrics, values.lyric])
     actions.setFieldValue('lyric', '')
+    isSubmitting(false)
+
+    setTimeout(() => {
+      isSubmitting(false)
+    }, 500)
   }
 
   return (

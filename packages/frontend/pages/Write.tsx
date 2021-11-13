@@ -1,10 +1,10 @@
 import { calc, Flex, Text } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout } from '../components/layout/Layout'
 import LyricInput from '../components/LyricInput'
 import { useRecoilState } from 'recoil'
 import { Lyrics } from '../recoil/atoms/lyrics'
-import { motion } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion'
 interface Props {}
 import { Box, BoxProps } from '@chakra-ui/layout'
 
@@ -12,10 +12,22 @@ export const MotionBox = motion<BoxProps>(Box)
 
 const WritePage = (props: Props) => {
   const [activeLyrics, setActiveLyrics] = useRecoilState(Lyrics)
+  const [submitting, isSubmitting] = useState(false)
+  const controls = useAnimation()
 
-  // useEffect(() => {
-  //   console.log(activeLyrics)
-  // }, [activeLyrics])
+  useEffect(() => {
+    if (submitting) {
+      controls.start('slide')
+    }
+    if (!submitting) {
+      controls.start('noSlide')
+    }
+  }, [controls, submitting, activeLyrics])
+
+  const inputVariants = {
+    noSlide: { y: 0 },
+    slide: { y: 50 },
+  }
 
   return (
     <Layout>
@@ -51,17 +63,18 @@ const WritePage = (props: Props) => {
         </Box>
 
         <MotionBox
-          animate={{ y: 100 }}
-          initial={false}
+          // initial={{ x: 0 }}
+          animate={controls}
+          variants={inputVariants}
           maxWidth="container.xl"
           bg={'white'}
           // border="1px solid orange"
         >
-          <LyricInput />
+          <LyricInput isSubmitting={isSubmitting} />
         </MotionBox>
-        <motion.div animate={{ y: 400 }}>
+        {/* <motion.div animate={{ y: 400 }}>
           <LyricInput />
-        </motion.div>
+        </motion.div> */}
       </Box>
     </Layout>
   )
