@@ -27,12 +27,15 @@ const WritePage = (props: Props) => {
           // border={'1px solid red'}
         >
           {activeLyrics.map((lyric, index) => (
-            <Box
+            <MotionBox
+              initial={{ opacity: 0, x: 0 }}
+              animate={{ opacity: 1, y: 50 }}
               key="index"
               alignItems="center"
               flexDirection="row"
               display="flex"
               h={100}
+
               // border="1px solid green"
             >
               <Text
@@ -43,18 +46,22 @@ const WritePage = (props: Props) => {
               >
                 {lyric}
               </Text>
-            </Box>
+            </MotionBox>
           ))}
         </Box>
 
         <MotionBox
-          animate={{ y: activeLyrics.length * 1 }}
+          animate={{ y: 100 }}
+          initial={false}
           maxWidth="container.xl"
           bg={'white'}
           // border="1px solid orange"
         >
           <LyricInput />
         </MotionBox>
+        <motion.div animate={{ y: 400 }}>
+          <LyricInput />
+        </motion.div>
       </Box>
     </Layout>
   )
