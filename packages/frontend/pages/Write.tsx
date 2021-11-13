@@ -17,21 +17,26 @@ const WritePage = (props: Props) => {
 
   useEffect(() => {
     if (submitting) {
+      console.log('submitting')
       controls.start('slide')
+      // isSubmitting(false)
     }
-    if (!submitting) {
+    if (submitting == false) {
       controls.start('noSlide')
     }
-  }, [controls, submitting, activeLyrics])
+    setTimeout(() => {
+      isSubmitting(false)
+    }, 1000)
+  }, [controls, submitting])
 
   const inputVariants = {
+    slide: { y: 100 },
     noSlide: { y: 0 },
-    slide: { y: 50 },
   }
 
   return (
     <Layout>
-      <Box h={'90vh'}>
+      <Box h={'90vh'} border={'1px solid blue'}>
         <Box
           mr={'100px'}
           ml={'100px'}
@@ -62,19 +67,22 @@ const WritePage = (props: Props) => {
           ))}
         </Box>
 
-        <MotionBox
+        {/* <MotionBox
           // initial={{ x: 0 }}
-          animate={controls}
-          variants={inputVariants}
+          animate={submitting ? 'slide' : 'noSlide'}
+          // variants={inputVariants}
           maxWidth="container.xl"
           bg={'white'}
           // border="1px solid orange"
         >
           <LyricInput isSubmitting={isSubmitting} />
-        </MotionBox>
-        {/* <motion.div animate={{ y: 400 }}>
-          <LyricInput />
-        </motion.div> */}
+        </MotionBox> */}
+        <motion.div
+          variants={inputVariants}
+          animate={submitting ? 'slide' : 'noSlide'}
+        >
+          <LyricInput isSubmitting={isSubmitting} />
+        </motion.div>
       </Box>
     </Layout>
   )
