@@ -33,10 +33,14 @@ const WritePage = (props: Props) => {
               flexDirection="row"
               display="flex"
               h={100}
-              border="1px solid green"
-              fontFamily="Raleway, sans-serif"
+              // border="1px solid green"
             >
-              <Text fontSize="4xl" color={'orange'}>
+              <Text
+                fontFamily="Raleway, sans-serif"
+                fontWeight="500"
+                fontSize="4xl"
+                color={'#66656D'}
+              >
                 {lyric}
               </Text>
             </Box>
