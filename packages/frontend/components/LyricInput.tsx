@@ -24,19 +24,22 @@ const LyricInput = () => {
     return error
   }
 
+  const handleSubmit = (values, actions) => {
+    setActiveLyrics((oldLyrics) => [...oldLyrics, values.lyric])
+    actions.setFieldValue('lyric', '')
+  }
+
   return (
     <Formik
       initialValues={{ lyric: 'Enter Lyrics Here' }}
-      onSubmit={(values, actions) => {
-        setActiveLyrics((oldLyrics) => [...oldLyrics, values.lyric])
-      }}
+      onSubmit={handleSubmit}
     >
       {(props) => (
         <Form
-          //   onSubmit={(d) => console.log(d)}
-          // onFocus={(e) => {
-          //   props.setFieldValue('lyric', '')
-          // }}
+          // onSubmit={(d) => props.setFieldValue('lyric', '')}
+          onFocus={(e) => {
+            props.setFieldValue('lyric', '')
+          }}
           style={{
             // border: '2px solid orange',
             borderRadius: '5px',
@@ -54,24 +57,25 @@ const LyricInput = () => {
           <Field
             // style={{ border: '3px solid red' }}
             name="lyric"
-            validate={validateLyrics}
+            // validate={validateLyrics}
           >
             {({ field, form }) => (
               <FormControl isInvalid={form.errors.lyric && form.touched.lyric}>
                 {/* <FormLabel htmlFor="name">First name</FormLabel> */}
                 <Input
                   //   bg="teal.300"
-                  opacity="40%"
+                  // opacity="40%"
                   flexGrow={2}
                   height="60px"
                   //   py="8"
                   {...field}
                   id="lyric"
                   placeholder="Lyric"
+                  placeholderColor="white"
                   // border={'4px solid red'}
                   borderStyle={'none'}
                   focusBorderColor="none"
-                  borderColor="orange"
+                  // borderColor="orange"
                   boxShadow={'none'}
                 />
 
@@ -79,16 +83,17 @@ const LyricInput = () => {
               </FormControl>
             )}
           </Field>
-          <Button
+          {/* <Button
             mt={4}
             colorScheme="teal"
             // isLoading={props.isSubmitting}
+            // onClick={() => handleSubmit(props.values, props)}
             type="submit"
             mb={'12px'}
             mr={'12px'}
           >
             Enter
-          </Button>
+          </Button> */}
         </Form>
       )}
     </Formik>

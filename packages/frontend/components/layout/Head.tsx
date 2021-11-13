@@ -50,7 +50,13 @@ export const Head = ({
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
       <meta name="twitter:image" content={meta.image} />
-      {/* <body style={{ backgroundColor: 'white' }} /> */}
+      <body style={{ backgroundColor: 'white' }} />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Raleway&display=swap"
+        rel="stylesheet"
+      />
     </NextHead>
   )
 }
