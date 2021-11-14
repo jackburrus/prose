@@ -1,6 +1,7 @@
 import React from 'react'
 import { Field, Form, Formik } from 'formik'
 import { FormControl, Input } from '@chakra-ui/react'
+import { css } from '@emotion/react'
 
 interface Props {}
 
@@ -15,6 +16,10 @@ const SongTitleInput = (props: Props) => {
     >
       {(props) => (
         <Form
+          onFocus={(e) => {
+            props.setFieldValue('title', '')
+          }}
+          autoComplete="off"
           style={{
             // border: '2px solid orange',
             // padding: '10px',
@@ -25,7 +30,7 @@ const SongTitleInput = (props: Props) => {
             justifyContent: 'flex-end',
             alignItems: 'center',
             backgroundColor: 'transparent',
-            opacity: '40%',
+            // opacity: '40%',
             marginRight: '100px',
             marginLeft: '100px',
           }}
@@ -34,8 +39,16 @@ const SongTitleInput = (props: Props) => {
             {({ field, form }) => {
               return (
                 <FormControl
+                  //   borderBottomColor={'orange'}
+                  css={css`
+                    *:focus {
+                      border: 0px;
+                      outline: none;
+                      box-shadow: none !important;
+                    }
+                  `}
                   style={{
-                    border: '2px solid red',
+                    // border: '2px solid green',
                     padding: '10px',
                     margin: '10px',
                     height: '100px',

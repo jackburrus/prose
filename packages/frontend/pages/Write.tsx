@@ -38,7 +38,11 @@ const WritePage = (props: Props) => {
 
   return (
     <Layout>
-      <Box h={'90vh'}>
+      <Flex
+        direction={'column'}
+        mb={'50'}
+        // border={'1px solid orange'}
+      >
         <Box
           mr={'100px'}
           ml={'100px'}
@@ -95,7 +99,7 @@ const WritePage = (props: Props) => {
         >
           <LyricInput isSubmitting={isSubmitting} />
         </motion.div>
-      </Box>
+      </Flex>
     </Layout>
   )
 }
