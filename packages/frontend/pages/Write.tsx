@@ -12,6 +12,7 @@ export const MotionBox = motion<BoxProps>(Box)
 
 const WritePage = (props: Props) => {
   const [activeLyrics, setActiveLyrics] = useRecoilState(Lyrics)
+  const [title, setTitle] = useState('')
   const [submitting, isSubmitting] = useState(false)
   const controls = useAnimation()
 
@@ -30,13 +31,30 @@ const WritePage = (props: Props) => {
   }, [controls, submitting])
 
   const inputVariants = {
-    slide: { y: 100 },
-    noSlide: { y: 90 },
+    slide: { y: 40 },
+    noSlide: { y: 10 },
   }
 
   return (
     <Layout>
-      <Box h={'90vh'} border={'1px solid blue'}>
+      <Box h={'90vh'}>
+        <Box
+          mr={'100px'}
+          ml={'100px'}
+          maxWidth="container.xl"
+          // border={'1px solid red'}
+          display={'flex'}
+          justifyContent="center"
+        >
+          <Text
+            fontFamily="Raleway, sans-serif"
+            fontWeight="700"
+            fontSize="5xl"
+            color={'#66656D'}
+          >
+            Title
+          </Text>
+        </Box>
         <Box
           mr={'100px'}
           ml={'100px'}
@@ -45,8 +63,8 @@ const WritePage = (props: Props) => {
         >
           {activeLyrics.map((lyric, index) => (
             <MotionBox
-              initial={{ opacity: 0, x: 0 }}
-              animate={{ opacity: 1, y: 50 }}
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
               key="index"
               alignItems="center"
               flexDirection="row"

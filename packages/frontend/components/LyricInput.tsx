@@ -47,6 +47,7 @@ const LyricInput = (props) => {
           onFocus={(e) => {
             props.setFieldValue('lyric', '')
           }}
+          autoComplete="off"
           style={{
             // border: '2px solid orange',
             borderRadius: '5px',
