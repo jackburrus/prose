@@ -7,6 +7,7 @@ import { Lyrics } from '../recoil/atoms/lyrics'
 import { motion, useAnimation } from 'framer-motion'
 interface Props {}
 import { Box, BoxProps } from '@chakra-ui/layout'
+import SongTitleInput from '../components/SongTitle'
 
 export const MotionBox = motion<BoxProps>(Box)
 
@@ -31,8 +32,8 @@ const WritePage = (props: Props) => {
   }, [controls, submitting])
 
   const inputVariants = {
-    slide: { y: 40 },
-    noSlide: { y: 10 },
+    slide: { y: 50 },
+    noSlide: { y: 20 },
   }
 
   return (
@@ -46,14 +47,7 @@ const WritePage = (props: Props) => {
           display={'flex'}
           justifyContent="center"
         >
-          <Text
-            fontFamily="Raleway, sans-serif"
-            fontWeight="700"
-            fontSize="5xl"
-            color={'#66656D'}
-          >
-            Title
-          </Text>
+          <SongTitleInput />
         </Box>
         <Box
           mr={'100px'}
