@@ -6,16 +6,40 @@ import { useRecoilState } from 'recoil'
 import { Lyrics } from '../recoil/atoms/lyrics'
 import { motion, useAnimation } from 'framer-motion'
 interface Props {}
+import { File, NFTStorage } from 'nft.storage'
 import { Box, BoxProps } from '@chakra-ui/layout'
 import SongTitleInput from '../components/SongTitle'
-
+import { useEthers } from '@usedapp/core'
+import { AlbumArt as AlbumArtAddress } from '../artifacts/contracts/contractAddress'
+import AlbumArt from '../artifacts/contracts/AlbumArt.sol/AlbumArt.json'
+import { AlbumArt as AlbumArtType } from '../types/typechain'
+import { ethers } from 'ethers'
 export const MotionBox = motion<BoxProps>(Box)
+const client = new NFTStorage({ token: process.env.NFTStorage })
 
 const WritePage = (props: Props) => {
   const [activeLyrics, setActiveLyrics] = useRecoilState(Lyrics)
   const [title, setTitle] = useState('')
   const [submitting, isSubmitting] = useState(false)
   const controls = useAnimation()
+
+  const { account, chainId, library } = useEthers()
+
+  async function fetchData() {
+    if (library) {
+      const contract = new ethers.Contract(
+        AlbumArtAddress,
+        AlbumArt.abi,
+        library
+      ) as AlbumArtType
+      try {
+        const data = await contract.returnMany()
+        console.log(data)
+      } catch (err) {
+        console.log('Error: ', err)
+      }
+    }
+  }
 
   useEffect(() => {
     if (submitting) {
@@ -37,7 +61,15 @@ const WritePage = (props: Props) => {
   }
 
   const handleIPFSSubmission = async () => {
-    console.log('submitting')
+    const metaData = await client.store({
+      name: title,
+      description: 'A new submission to prose.',
+
+      image: new File([], 'images/logo-metamask.png', {
+        type: 'image/jpg',
+      }),
+    })
+    console.log(metaData)
   }
 
   return (
@@ -124,7 +156,8 @@ const WritePage = (props: Props) => {
             justifyContent="flex-end"
           >
             <Button
-              onClick={handleIPFSSubmission}
+              onClick={fetchData}
+              // onClick={handleIPFSSubmission}
               variant="solid"
               colorScheme="blue"
             >
