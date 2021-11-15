@@ -1,4 +1,4 @@
-import { calc, Flex, Text } from '@chakra-ui/react'
+import { Button, calc, Flex, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { Layout } from '../components/layout/Layout'
 import LyricInput from '../components/LyricInput'
@@ -36,6 +36,10 @@ const WritePage = (props: Props) => {
     noSlide: { y: 20 },
   }
 
+  const handleIPFSSubmission = async () => {
+    console.log('submitting')
+  }
+
   return (
     <Layout>
       <Flex
@@ -51,7 +55,18 @@ const WritePage = (props: Props) => {
           display={'flex'}
           justifyContent="center"
         >
-          <SongTitleInput />
+          {title ? (
+            <Text
+              fontFamily="Raleway, sans-serif"
+              fontWeight="600"
+              fontSize="5xl"
+              color={'#66656D'}
+            >
+              {title}
+            </Text>
+          ) : (
+            <SongTitleInput setTitle={setTitle} />
+          )}
         </Box>
         <Box
           mr={'100px'}
@@ -98,6 +113,24 @@ const WritePage = (props: Props) => {
           animate={submitting ? 'slide' : 'noSlide'}
         >
           <LyricInput isSubmitting={isSubmitting} />
+          <Box
+            // border="1px solid red"
+            mt={'5'}
+            mr={'100px'}
+            ml={'100px'}
+            maxWidth="container.xl"
+            display="flex"
+            alignItems="flex-end"
+            justifyContent="flex-end"
+          >
+            <Button
+              onClick={handleIPFSSubmission}
+              variant="solid"
+              colorScheme="blue"
+            >
+              Submit to IPFS
+            </Button>
+          </Box>
         </motion.div>
       </Flex>
     </Layout>

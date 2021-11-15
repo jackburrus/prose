@@ -3,11 +3,15 @@ import { Field, Form, Formik } from 'formik'
 import { FormControl, Input } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 
-interface Props {}
+interface Props {
+  setTitle: (v) => void
+}
 
 const SongTitleInput = (props: Props) => {
-  const handleSubmit = () => {
+  const { setTitle } = props
+  const handleSubmit = (values, actions) => {
     console.log('Submitted title')
+    setTitle(values.title)
   }
   return (
     <Formik

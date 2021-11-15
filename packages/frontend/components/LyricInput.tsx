@@ -56,10 +56,11 @@ const LyricInput = (props) => {
             flexDirection: 'row',
             justifyContent: 'flex-end',
             alignItems: 'center',
-            backgroundColor: 'teal',
-            opacity: '40%',
+            backgroundColor: '#47c2bc99',
+
             marginRight: '100px',
             marginLeft: '100px',
+            padding: '10px',
           }}
         >
           <Field
@@ -78,9 +79,16 @@ const LyricInput = (props) => {
                   //   py="8"
                   {...field}
                   id="lyric"
-                  placeholder="Lyric"
-                  placeholderColor="white"
-                  // border={'4px solid red'}
+                  placeholder=""
+                  color={'#403f44'}
+                  fontFamily="Raleway"
+                  fontSize="3xl"
+                  fontWeight="500"
+                  css={css`
+                    ::placeholder {
+                      color: '#403f44';
+                    }
+                  `}
                   borderStyle={'none'}
                   focusBorderColor="none"
                   // borderColor="orange"
