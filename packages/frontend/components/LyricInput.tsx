@@ -56,8 +56,9 @@ const LyricInput = (props) => {
             flexDirection: 'row',
             justifyContent: 'flex-end',
             alignItems: 'center',
-            backgroundColor: '#47c2bc99',
-
+            backgroundColor: 'rgba(145, 218, 215, 0.4)',
+            // opacity: 0.4,
+            border: '1px solid #47c2bc99',
             marginRight: '100px',
             marginLeft: '100px',
             padding: '10px',

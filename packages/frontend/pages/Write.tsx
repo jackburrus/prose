@@ -222,6 +222,8 @@ const WritePage = (props: Props) => {
               // onClick={handleIPFSSubmission}
               variant="solid"
               colorScheme="blue"
+              bg={'rgba(145, 218, 215, 0.4)'}
+              border={'1px solid #47c2bc99'}
             >
               Submit to IPFS
             </Button>
@@ -232,6 +234,8 @@ const WritePage = (props: Props) => {
               // onClick={handleIPFSSubmission}
               variant="solid"
               colorScheme="blue"
+              bg={'rgba(145, 218, 215, 0.4)'}
+              border={'1px solid #47c2bc99'}
             >
               Submit to NFT Port
             </Button>
