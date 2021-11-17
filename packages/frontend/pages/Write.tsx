@@ -16,11 +16,12 @@ import { AlbumArt as AlbumArtType } from '../types/typechain'
 import { ethers } from 'ethers'
 export const MotionBox = motion<BoxProps>(Box)
 const client = new NFTStorage({ token: process.env.NFTStorage })
-
+import axios from 'axios'
 const WritePage = (props: Props) => {
   const [activeLyrics, setActiveLyrics] = useRecoilState(Lyrics)
   const [title, setTitle] = useState('')
   const [submitting, isSubmitting] = useState(false)
+  const [ipfsURL, setIPFSurl] = useState('')
   const controls = useAnimation()
 
   const { account, chainId, library } = useEthers()
@@ -39,6 +40,66 @@ const WritePage = (props: Props) => {
         console.log('Error: ', err)
       }
     }
+  }
+
+  const writeToNFTPort = async () => {
+    const ipfsURL = await writeData()
+    const data = await fetch('https://api.nftport.xyz/v0/mints/easy/urls', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: process.env.NFTPort,
+      },
+      body: JSON.stringify({
+        chain: 'rinkeby',
+        name: 'Example NFT!!!',
+        description: 'This is the example description',
+        file_url: ipfsURL,
+        mint_to_address: '0x20E2Ca319F62a3966398A767f9b36639Eb69c023',
+      }),
+    }).then((res) => res.json())
+    console.log(data)
+  }
+
+  const writeData = async () => {
+    // Write active lyrics to a txt file
+    const data = title + '\n' + activeLyrics.join('\n')
+    // write txt file and upload to client
+    const file = new File([data], 'lyrics.txt', { type: 'text/plain' })
+    const fileHash = await client.store({
+      name: title,
+      description: 'Some Lyrics',
+      image: file,
+    })
+    console.log(fileHash.data.image.href)
+    setIPFSurl(fileHash.data.image.href)
+    return fileHash.data.image.href.replace('ipfs://', 'https://ipfs.io/ipfs/')
+
+    // const blob = new Blob([data], { type: 'text/plain' })
+
+    // create a url from blob file
+    // const url = URL.createObjectURL(blob)
+    // console.log(url)
+
+    // // make a post request to an api
+    // const response = await fetch('https://api.nftport.xyz/v0/mints/easy/urls', {
+    //   method: 'POST',
+    //   // add headers
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Authorization: process.env.NFTPort,
+    //   },
+    // body: JSON.stringify({
+    //   chain: 'rinkeby',
+    //   name: 'Example NFT!!!',
+    //   description: 'This is the example description',
+    //   file_url: url,
+    //   mint_to_address: '0x20E2Ca319F62a3966398A767f9b36639Eb69c023',
+    // }),
+    //   // body: blob,
+    // })
+    // const json = await response.json()
+    // console.log(json)
   }
 
   useEffect(() => {
@@ -156,12 +217,23 @@ const WritePage = (props: Props) => {
             justifyContent="flex-end"
           >
             <Button
-              onClick={fetchData}
+              // onClick={fetchData}
+              onClick={writeData}
               // onClick={handleIPFSSubmission}
               variant="solid"
               colorScheme="blue"
             >
               Submit to IPFS
+            </Button>
+            <Button
+              ml={10}
+              // onClick={fetchData}
+              onClick={writeToNFTPort}
+              // onClick={handleIPFSSubmission}
+              variant="solid"
+              colorScheme="blue"
+            >
+              Submit to NFT Port
             </Button>
           </Box>
         </motion.div>

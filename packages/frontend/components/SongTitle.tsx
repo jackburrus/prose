@@ -11,6 +11,7 @@ const SongTitleInput = (props: Props) => {
   const { setTitle } = props
   const handleSubmit = (values, actions) => {
     console.log('Submitted title')
+    console.log(values.title)
     setTitle(values.title)
   }
   return (

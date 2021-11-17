@@ -2,6 +2,7 @@ const nextConfig = {
   /* config options here */
   env: {
     NFTStorage: process.env.NFTStorage,
+    NFTPort: process.env.NFTPort,
   },
   typescript: {
     // !! WARN !!
