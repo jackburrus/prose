@@ -19,8 +19,21 @@ const MyWorkPage = (props: Props) => {
         },
       }
     ).then((res) => res.json())
-    console.log(data)
-    setAllMintedNfts(data.minted_nfts)
+
+    data.minted_nfts.map(async (nftData) => {
+      const urlToFetch = nftData.metadata_uri.replace(
+        'ipfs://',
+        'https://ipfs.io/ipfs/'
+      )
+      const data = await fetch(urlToFetch).then((res) => res.json())
+      const text = await fetch(data.image).then((res) => res.text())
+      setAllMintedNfts((prevState) => [
+        ...prevState,
+        { ...nftData, Text: text },
+      ])
+    })
+
+    // setAllMintedNfts(data.minted_nfts)
   }
 
   useEffect(() => {
@@ -30,18 +43,21 @@ const MyWorkPage = (props: Props) => {
     // }
   }, [])
 
+  useEffect(() => {
+    console.log(allMintedNfts)
+  }, [allMintedNfts])
+
   return (
     <Layout>
       <Box maxWidth="container.xl" h="100vh" bg={'white'}>
-        {allMintedNfts.length > 0 &&
-          allMintedNfts.map((nft, index) => {
-            return (
-              <Box key={index}>
-                <Text color={'black'}>{nft.metadata_uri}</Text>
-                <Text color={'black'}>{nft.mint_date}</Text>
-              </Box>
-            )
-          })}
+        {allMintedNfts.map((nft, index) => {
+          return (
+            <Box key={index}>
+              <Text color={'black'}>{nft.metadata_uri}</Text>
+              <Text color={'black'}>{nft.mint_date}</Text>
+            </Box>
+          )
+        })}
       </Box>
     </Layout>
   )
