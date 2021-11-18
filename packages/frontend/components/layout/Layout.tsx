@@ -80,18 +80,6 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
             py="8"
           >
             <Flex py={[4, null, null, 0]}>
-              <NextLink href="/Write" passHref>
-                <Link px="4" py="1">
-                  <Text
-                    fontSize={'3xl'}
-                    fontFamily="sans-serif"
-                    letterSpacing={'0.05em'}
-                    color={router.pathname === '/Write' ? 'black' : 'grey'}
-                  >
-                    Write
-                  </Text>
-                </Link>
-              </NextLink>
               <NextLink href="/" passHref>
                 <Link px="4" py="1">
                   <Text
@@ -100,12 +88,24 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
                     letterSpacing={'0.05em'}
                     color={router.pathname === '/' ? 'black' : 'grey'}
                   >
-                    Explore
+                    Write
+                  </Text>
+                </Link>
+              </NextLink>
+              <NextLink href="/MyWork" passHref>
+                <Link px="4" py="1">
+                  <Text
+                    fontSize={'3xl'}
+                    fontFamily="sans-serif"
+                    letterSpacing={'0.05em'}
+                    color={router.pathname === '/MyWork' ? 'black' : 'grey'}
+                  >
+                    My Work
                   </Text>
                 </Link>
               </NextLink>
 
-              <NextLink href="/Holdings" passHref>
+              {/* <NextLink href="/Holdings" passHref>
                 <Link px="4" py="1">
                   <Text
                     fontSize={'3xl'}
@@ -130,7 +130,7 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
                     Leaderboard
                   </Text>
                 </Link>
-              </NextLink>
+              </NextLink> */}
             </Flex>
             {account ? (
               <Flex

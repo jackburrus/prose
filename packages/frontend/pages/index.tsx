@@ -15,6 +15,7 @@ import YourContract from '../artifacts/contracts/YourContract.sol/YourContract.j
 import { Layout } from '../components/layout/Layout'
 import SongCard from '../components/SongCard'
 import { YourContract as YourContractType } from '../types/typechain'
+import WritePage from './Write'
 
 /**
  * Constants & Helpers
@@ -146,13 +147,7 @@ function HomeIndex(): JSX.Element {
     })
   }
 
-  return (
-    <Layout>
-      <Box maxWidth="container.xl" h="100vh" bg={'white'}>
-        <SongCard />
-      </Box>
-    </Layout>
-  )
+  return <WritePage />
 }
 
 export default HomeIndex
