@@ -13,18 +13,33 @@ import { useEthers } from '@usedapp/core'
 import { AlbumArt as AlbumArtAddress } from '../artifacts/contracts/contractAddress'
 import AlbumArt from '../artifacts/contracts/AlbumArt.sol/AlbumArt.json'
 import { AlbumArt as AlbumArtType } from '../types/typechain'
+import Lottie from 'react-lottie'
 import { ethers } from 'ethers'
 export const MotionBox = motion<BoxProps>(Box)
 const client = new NFTStorage({ token: process.env.NFTStorage })
 import axios from 'axios'
+import animationData from '../public/confetti.json'
+import { BsFillCheckCircleFill } from 'react-icons/bs'
 const WritePage = (props: Props) => {
   const [activeLyrics, setActiveLyrics] = useRecoilState(Lyrics)
+
   const [title, setTitle] = useState('')
   const [submitting, isSubmitting] = useState(false)
   const [ipfsURL, setIPFSurl] = useState('')
   const controls = useAnimation()
-
+  const [playAnimation, setPlayAnimation] = useState(false)
+  const [submittedToIpfs, setSubmittedToIpfs] = useState(false)
+  const [submittedToNFTPort, setSubmittedToNFTPort] = useState(false)
   const { account, chainId, library } = useEthers()
+
+  const defaultAnimationOptions = {
+    autoplay: true,
+
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  }
 
   async function fetchData() {
     if (library) {
@@ -55,10 +70,16 @@ const WritePage = (props: Props) => {
         name: 'Example NFT!!!',
         description: 'This is the example description',
         file_url: ipfsURL,
-        mint_to_address: '0x20E2Ca319F62a3966398A767f9b36639Eb69c023',
+        mint_to_address: account,
       }),
     }).then((res) => res.json())
+    setSubmittedToIpfs(true)
+    setSubmittedToNFTPort(true)
     console.log(data)
+    setPlayAnimation(true)
+    setTimeout(() => {
+      setPlayAnimation(false)
+    }, 5000)
   }
 
   const writeData = async () => {
@@ -71,35 +92,14 @@ const WritePage = (props: Props) => {
       description: 'Some Lyrics',
       image: file,
     })
+    setSubmittedToIpfs(true)
     console.log(fileHash.data.image.href)
     setIPFSurl(fileHash.data.image.href)
+    setPlayAnimation(true)
+    setTimeout(() => {
+      setPlayAnimation(false)
+    }, 5000)
     return fileHash.data.image.href.replace('ipfs://', 'https://ipfs.io/ipfs/')
-
-    // const blob = new Blob([data], { type: 'text/plain' })
-
-    // create a url from blob file
-    // const url = URL.createObjectURL(blob)
-    // console.log(url)
-
-    // // make a post request to an api
-    // const response = await fetch('https://api.nftport.xyz/v0/mints/easy/urls', {
-    //   method: 'POST',
-    //   // add headers
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Authorization: process.env.NFTPort,
-    //   },
-    // body: JSON.stringify({
-    //   chain: 'rinkeby',
-    //   name: 'Example NFT!!!',
-    //   description: 'This is the example description',
-    //   file_url: url,
-    //   mint_to_address: '0x20E2Ca319F62a3966398A767f9b36639Eb69c023',
-    // }),
-    //   // body: blob,
-    // })
-    // const json = await response.json()
-    // console.log(json)
   }
 
   useEffect(() => {
@@ -121,23 +121,12 @@ const WritePage = (props: Props) => {
     noSlide: { y: 20 },
   }
 
-  const handleIPFSSubmission = async () => {
-    const metaData = await client.store({
-      name: title,
-      description: 'A new submission to prose.',
-
-      image: new File([], 'images/logo-metamask.png', {
-        type: 'image/jpg',
-      }),
-    })
-    console.log(metaData)
-  }
-
   return (
     <Layout>
       <Flex
         direction={'column'}
         mb={'50'}
+        position={'relative'}
         // border={'1px solid orange'}
       >
         <Box
@@ -241,7 +230,72 @@ const WritePage = (props: Props) => {
             </Button>
           </Box>
         </motion.div>
+        <MotionBox
+          mt={50}
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          {submittedToIpfs && (
+            <Box
+              // border={'1px solid red'}
+              display={'flex'}
+              flexDirection="row"
+              alignItems="center"
+              mr={100}
+              ml={100}
+            >
+              <BsFillCheckCircleFill color={'green'} size={36} />
+              <Text
+                fontFamily="Raleway, sans-serif"
+                fontWeight="600"
+                fontSize="3xl"
+                color={'#66656D'}
+                ml={10}
+              >
+                {' '}
+                Submitted to IPFS!
+              </Text>
+            </Box>
+          )}
+        </MotionBox>
+        <MotionBox
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          {submittedToNFTPort && (
+            <Box
+              // border={'1px solid red'}
+              display={'flex'}
+              flexDirection="row"
+              alignItems="center"
+              mr={100}
+              ml={100}
+              mt={10}
+            >
+              <BsFillCheckCircleFill color={'green'} size={36} />
+              <Text
+                fontFamily="Raleway, sans-serif"
+                fontWeight="600"
+                fontSize="3xl"
+                color={'#66656D'}
+                ml={10}
+              >
+                {' '}
+                Submitted to NFT Port!
+              </Text>
+            </Box>
+          )}
+        </MotionBox>
       </Flex>
+      {playAnimation && (
+        <Box position={'fixed'} bottom={'0%'}>
+          <Lottie
+            options={defaultAnimationOptions}
+            height={'auto'}
+            width={'100%'}
+          />
+        </Box>
+      )}
     </Layout>
   )
 }
