@@ -1,25 +1,15 @@
-import { Badge, Box } from '@chakra-ui/react'
+import { Badge, Box, Text } from '@chakra-ui/react'
 import React from 'react'
 import Image from 'next/image'
 import { StarIcon } from '@chakra-ui/icons'
 interface Props {
-  titleImage: string
-  ensName: string
-  ethAmount: number
-  timeLeft: number
+  title: string
+  text: string[]
+  date: number
 }
 
-const SongCard = (props: Props) => {
-  const property = {
-    imageUrl: 'https://bit.ly/2Z4KKcF',
-    imageAlt: 'Rear view of modern home with pool',
-    beds: 3,
-    baths: 2,
-    title: 'Modern home in city center in the heart of historic Los Angeles',
-    formattedPrice: '$1,900.00',
-    reviewCount: 34,
-    rating: 4,
-  }
+const WritingCard = (props: Props) => {
+  const { title, text, date } = props
   return (
     <Box
       maxW={'xs'}
@@ -29,7 +19,7 @@ const SongCard = (props: Props) => {
       overflow="hidden"
     >
       <Box position="relative" display={'flex'} height={200} width={400}>
-        <Image layout="fill" src={property.imageUrl} alt={property.imageAlt} />
+        {/* <Image layout="fill" src={property.imageUrl} alt={property.imageAlt} /> */}
       </Box>
 
       <Box p="6">
@@ -45,7 +35,7 @@ const SongCard = (props: Props) => {
             textTransform="uppercase"
             ml="2"
           >
-            {property.beds} beds &bull; {property.baths} baths
+            {/* {property.beds} beds &bull; {property.baths} baths */}
           </Box>
         </Box>
 
@@ -56,27 +46,19 @@ const SongCard = (props: Props) => {
           lineHeight="tight"
           isTruncated
         >
-          {property.title}
+          <Text color={'black'}>{title}</Text>
         </Box>
 
         <Box>
-          {property.formattedPrice}
+          {/* {property.formattedPrice} */}
           <Box as="span" color="gray.600" fontSize="sm">
             / wk
           </Box>
         </Box>
 
         <Box display="flex" mt="2" alignItems="center">
-          {Array(5)
-            .fill('')
-            .map((_, i) => (
-              <StarIcon
-                key={i}
-                color={i < property.rating ? 'teal.500' : 'gray.300'}
-              />
-            ))}
           <Box as="span" ml="2" color="gray.600" fontSize="sm">
-            {property.reviewCount} reviews
+            {/* {property.reviewCount} reviews */}
           </Box>
         </Box>
       </Box>
@@ -84,4 +66,4 @@ const SongCard = (props: Props) => {
   )
 }
 
-export default SongCard
+export default WritingCard

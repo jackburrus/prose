@@ -1,6 +1,7 @@
-import { Box, Text } from '@chakra-ui/react'
+import { Box, SimpleGrid, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { Layout } from '../components/layout/Layout'
+import WritingCard from '../components/SongCard'
 import SongCard from '../components/SongCard'
 
 interface Props {}
@@ -29,7 +30,7 @@ const MyWorkPage = (props: Props) => {
       const text = await fetch(data.image).then((res) => res.text())
       setAllMintedNfts((prevState) => [
         ...prevState,
-        { ...nftData, Text: text },
+        { ...nftData, text: text },
       ])
     })
 
@@ -37,27 +38,37 @@ const MyWorkPage = (props: Props) => {
   }
 
   useEffect(() => {
+    setAllMintedNfts([])
     fetchMintedNFTs()
     // if (allMintedNfts.length > 0) {
     //   console.log(allMintedNfts)
     // }
   }, [])
 
-  useEffect(() => {
-    console.log(allMintedNfts)
-  }, [allMintedNfts])
+  // useEffect(() => {
+  //   console.log(allMintedNfts)
+  // }, [allMintedNfts])
 
   return (
     <Layout>
       <Box maxWidth="container.xl" h="100vh" bg={'white'}>
-        {allMintedNfts.map((nft, index) => {
-          return (
-            <Box key={index}>
-              <Text color={'black'}>{nft.metadata_uri}</Text>
-              <Text color={'black'}>{nft.mint_date}</Text>
-            </Box>
-          )
-        })}
+        <SimpleGrid columns={3} spacing={10}>
+          {allMintedNfts.map((nft, index) => {
+            console.log(nft.text)
+            return (
+              // <Box key={index}>
+              //   <Text color={'black'}>{nft.metadata_uri}</Text>
+              //   <Text color={'black'}>{nft.mint_date}</Text>
+              // </Box>
+              <WritingCard
+                key={index}
+                title={
+                  nft.text.split('\n')[0] ? nft.text.split('\n')[0] : 'Untitled'
+                }
+              />
+            )
+          })}
+        </SimpleGrid>
       </Box>
     </Layout>
   )
