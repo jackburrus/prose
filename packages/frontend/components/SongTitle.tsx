@@ -14,11 +14,9 @@ const SongTitleInput = (props: Props) => {
     console.log(values.title)
     setTitle(values.title)
   }
+
   return (
-    <Formik
-      initialValues={{ title: 'Enter Title Here' }}
-      onSubmit={handleSubmit}
-    >
+    <Formik initialValues={{ title: 'Title' }} onSubmit={handleSubmit}>
       {(props) => (
         <Form
           onFocus={(e) => {
@@ -61,6 +59,9 @@ const SongTitleInput = (props: Props) => {
                 >
                   <Input
                     {...field}
+                    onChange={(e) => {
+                      props.setFieldValue('title', e.target.value)
+                    }}
                     id="title"
                     placeholder="Title"
                     placeholderColor="black"

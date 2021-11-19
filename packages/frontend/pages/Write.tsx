@@ -20,9 +20,10 @@ const client = new NFTStorage({ token: process.env.NFTStorage })
 import axios from 'axios'
 import animationData from '../public/confetti.json'
 import { BsFillCheckCircleFill } from 'react-icons/bs'
+import { useToast } from '@chakra-ui/react'
 const WritePage = (props: Props) => {
   const [activeLyrics, setActiveLyrics] = useRecoilState(Lyrics)
-
+  const toast = useToast()
   const [title, setTitle] = useState('')
   const [submitting, isSubmitting] = useState(false)
   const [ipfsURL, setIPFSurl] = useState('')
@@ -74,6 +75,15 @@ const WritePage = (props: Props) => {
       }),
     }).then((res) => res.json())
     setSubmittedToIpfs(true)
+    toast({
+      title: 'Uploaded to NFT Port 🙌',
+      description:
+        'Your writing has been uploaded to NFT Port and IPFS for everyone in the Galaxy to enjoy! Check it out on Polygon Scan',
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+
     setSubmittedToNFTPort(true)
     console.log(data)
     setPlayAnimation(true)
@@ -93,6 +103,14 @@ const WritePage = (props: Props) => {
       image: file,
     })
     setSubmittedToIpfs(true)
+    toast({
+      title: 'Uploaded to IPFS 🙌',
+      description:
+        'Your writing has been uploaded to IPFS for everyone in the Galaxy',
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
     console.log(fileHash.data.image.href)
     setIPFSurl(fileHash.data.image.href)
     setPlayAnimation(true)
@@ -100,6 +118,11 @@ const WritePage = (props: Props) => {
       setPlayAnimation(false)
     }, 5000)
     return fileHash.data.image.href.replace('ipfs://', 'https://ipfs.io/ipfs/')
+  }
+
+  const clearAllValues = () => {
+    setTitle('')
+    setActiveLyrics([])
   }
 
   useEffect(() => {
@@ -228,9 +251,21 @@ const WritePage = (props: Props) => {
             >
               Submit to NFT Port
             </Button>
+            <Button
+              ml={10}
+              // onClick={fetchData}
+              onClick={clearAllValues}
+              // onClick={handleIPFSSubmission}
+              variant="solid"
+              colorScheme="blue"
+              bg={'rgba(145, 218, 215, 0.4)'}
+              border={'1px solid #47c2bc99'}
+            >
+              Clear
+            </Button>
           </Box>
         </motion.div>
-        <MotionBox
+        {/* <MotionBox
           mt={50}
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -285,7 +320,7 @@ const WritePage = (props: Props) => {
               </Text>
             </Box>
           )}
-        </MotionBox>
+        </MotionBox> */}
       </Flex>
       {playAnimation && (
         <Box position={'fixed'} bottom={'0%'}>

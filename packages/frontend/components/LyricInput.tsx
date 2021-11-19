@@ -38,7 +38,8 @@ const LyricInput = (props) => {
 
   return (
     <Formik
-      initialValues={{ lyric: 'Enter Lyrics Here' }}
+      initialValues={{ lyric: '' }}
+      initial={{ color: 'grey' }}
       onSubmit={handleSubmit}
     >
       {(props) => (

@@ -1,4 +1,4 @@
-import { Badge, Box, Text } from '@chakra-ui/react'
+import { Badge, Box, List, ListItem, Text } from '@chakra-ui/react'
 import React from 'react'
 import Image from 'next/image'
 import { StarIcon } from '@chakra-ui/icons'
@@ -40,18 +40,25 @@ const WritingCard = (props: Props) => {
           lineHeight="tight"
           isTruncated
         >
-          <Text color={'black'}>{title}</Text>
+          <Text fontSize={'2xl'} color={'black'}>
+            {title}
+          </Text>
         </Box>
-        <Box position="relative" display={'flex'} height={200} width={400}>
-          <list>
+        <Box flexWrap={'wrap'} display={'flex'} height={200} width={400}>
+          <List
+            maxWidth={250}
+            // border="1px solid green"
+            display="flex"
+            flexWrap="wrap"
+          >
             {body.map((line, index) => {
               return (
-                <li>
+                <ListItem flexWrap="wrap">
                   <Text color={'black'}>{line + '\n'}</Text>
-                </li>
+                </ListItem>
               )
             })}
-          </list>
+          </List>
         </Box>
         <Box>
           {/* {property.formattedPrice} */}

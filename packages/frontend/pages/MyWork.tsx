@@ -11,9 +11,10 @@ interface Props {}
 const MyWorkPage = (props: Props) => {
   const [allMintedNfts, setAllMintedNfts] = useState([])
   const { account, chainId, library } = useEthers()
+  console.log(library)
   const fetchMintedNFTs = async () => {
     const data = await fetch(
-      'https://api.nftport.xyz/v0/me/mints?chain=rinkeby&page_number=1',
+      `https://api.nftport.xyz/v0/me/mints?chain=rinkeby&page_number=1`,
       {
         method: 'GET',
         headers: {
@@ -22,7 +23,7 @@ const MyWorkPage = (props: Props) => {
         },
       }
     ).then((res) => res.json())
-    console.log(account)
+
     const filteredData = data.minted_nfts.filter(
       (nft) => nft.mint_to_address.toLowerCase() == account.toLowerCase()
     )
@@ -48,10 +49,6 @@ const MyWorkPage = (props: Props) => {
       setAllMintedNfts([])
       fetchMintedNFTs()
     }
-
-    // if (allMintedNfts.length > 0) {
-    //   console.log(allMintedNfts)
-    // }
   }, [account])
 
   // useEffect(() => {
