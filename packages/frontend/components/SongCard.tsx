@@ -5,11 +5,12 @@ import { StarIcon } from '@chakra-ui/icons'
 interface Props {
   title: string
   text: string[]
-  date: number
+  date: string
+  body: string[]
 }
 
 const WritingCard = (props: Props) => {
-  const { title, text, date } = props
+  const { title, text, date, body } = props
   return (
     <Box
       maxW={'xs'}
@@ -18,15 +19,8 @@ const WritingCard = (props: Props) => {
       borderRadius="lg"
       overflow="hidden"
     >
-      <Box position="relative" display={'flex'} height={200} width={400}>
-        {/* <Image layout="fill" src={property.imageUrl} alt={property.imageAlt} /> */}
-      </Box>
-
       <Box p="6">
         <Box display="flex" alignItems="baseline">
-          <Badge borderRadius="full" px="2" colorScheme="teal">
-            New
-          </Badge>
           <Box
             color="gray.500"
             fontWeight="semibold"
@@ -48,11 +42,21 @@ const WritingCard = (props: Props) => {
         >
           <Text color={'black'}>{title}</Text>
         </Box>
-
+        <Box position="relative" display={'flex'} height={200} width={400}>
+          <list>
+            {body.map((line, index) => {
+              return (
+                <li>
+                  <Text color={'black'}>{line + '\n'}</Text>
+                </li>
+              )
+            })}
+          </list>
+        </Box>
         <Box>
           {/* {property.formattedPrice} */}
           <Box as="span" color="gray.600" fontSize="sm">
-            / wk
+            <Text color={'black'}>{date}</Text>
           </Box>
         </Box>
 

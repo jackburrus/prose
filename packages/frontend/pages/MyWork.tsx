@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Layout } from '../components/layout/Layout'
 import WritingCard from '../components/SongCard'
 import SongCard from '../components/SongCard'
+import * as dayjs from 'dayjs'
 
 interface Props {}
 
@@ -54,7 +55,9 @@ const MyWorkPage = (props: Props) => {
       <Box maxWidth="container.xl" h="100vh" bg={'white'}>
         <SimpleGrid columns={3} spacing={10}>
           {allMintedNfts.map((nft, index) => {
-            console.log(nft.text)
+            const listOfLines = nft.text.split('\n')
+            const body = listOfLines.slice(1, -1)
+            console.log(nft)
             return (
               // <Box key={index}>
               //   <Text color={'black'}>{nft.metadata_uri}</Text>
@@ -65,6 +68,8 @@ const MyWorkPage = (props: Props) => {
                 title={
                   nft.text.split('\n')[0] ? nft.text.split('\n')[0] : 'Untitled'
                 }
+                body={body}
+                date={dayjs(nft.mint_date).format('D MMMM')}
               />
             )
           })}
