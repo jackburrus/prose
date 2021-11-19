@@ -4,12 +4,13 @@ import { Layout } from '../components/layout/Layout'
 import WritingCard from '../components/SongCard'
 import SongCard from '../components/SongCard'
 import * as dayjs from 'dayjs'
+import { useEthers } from '@usedapp/core'
 
 interface Props {}
 
 const MyWorkPage = (props: Props) => {
   const [allMintedNfts, setAllMintedNfts] = useState([])
-
+  const { account, chainId, library } = useEthers()
   const fetchMintedNFTs = async () => {
     const data = await fetch(
       'https://api.nftport.xyz/v0/me/mints?chain=rinkeby&page_number=1',
@@ -21,8 +22,12 @@ const MyWorkPage = (props: Props) => {
         },
       }
     ).then((res) => res.json())
-
-    data.minted_nfts.map(async (nftData) => {
+    console.log(account)
+    const filteredData = data.minted_nfts.filter(
+      (nft) => nft.mint_to_address.toLowerCase() == account.toLowerCase()
+    )
+    console.log(filteredData)
+    filteredData.map(async (nftData) => {
       const urlToFetch = nftData.metadata_uri.replace(
         'ipfs://',
         'https://ipfs.io/ipfs/'
@@ -39,12 +44,15 @@ const MyWorkPage = (props: Props) => {
   }
 
   useEffect(() => {
-    setAllMintedNfts([])
-    fetchMintedNFTs()
+    if (account) {
+      setAllMintedNfts([])
+      fetchMintedNFTs()
+    }
+
     // if (allMintedNfts.length > 0) {
     //   console.log(allMintedNfts)
     // }
-  }, [])
+  }, [account])
 
   // useEffect(() => {
   //   console.log(allMintedNfts)
