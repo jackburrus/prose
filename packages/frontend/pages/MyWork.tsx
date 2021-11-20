@@ -11,7 +11,7 @@ interface Props {}
 const MyWorkPage = (props: Props) => {
   const [allMintedNfts, setAllMintedNfts] = useState([])
   const { account, chainId, library } = useEthers()
-  console.log(library)
+
   const fetchMintedNFTs = async () => {
     const data = await fetch(
       `https://api.nftport.xyz/v0/me/mints?chain=rinkeby&page_number=1`,
@@ -74,7 +74,7 @@ const MyWorkPage = (props: Props) => {
                   nft.text.split('\n')[0] ? nft.text.split('\n')[0] : 'Untitled'
                 }
                 body={body}
-                date={dayjs(nft.mint_date).format('D MMMM')}
+                date={dayjs(nft.mint_date).format('MMM D')}
                 etherscan={nft.transaction_hash}
               />
             )

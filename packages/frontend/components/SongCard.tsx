@@ -3,6 +3,8 @@ import React from 'react'
 import Image from 'next/image'
 import { StarIcon } from '@chakra-ui/icons'
 import { MotionBox } from '../pages/Write'
+import { useEthers } from '@usedapp/core'
+
 interface Props {
   title: string
   text: string[]
@@ -22,6 +24,7 @@ const hoverAnimation = {
 
 const WritingCard = (props: Props) => {
   const { title, text, date, body, etherscan } = props
+  const { account } = useEthers()
 
   return (
     <MotionBox
@@ -41,20 +44,7 @@ const WritingCard = (props: Props) => {
       height={400}
       borderRadius={'3xl'}
     >
-      <Box p="6" height={400} border={'1px solid blue'}>
-        <Box display="flex" alignItems="baseline">
-          <Box
-            color="gray.500"
-            fontWeight="semibold"
-            letterSpacing="wide"
-            fontSize="xs"
-            textTransform="uppercase"
-            ml="2"
-          >
-            {/* {property.beds} beds &bull; {property.baths} baths */}
-          </Box>
-        </Box>
-
+      <Box p="6" height={400}>
         <Box
           mt="1"
           fontWeight="semibold"
@@ -65,31 +55,50 @@ const WritingCard = (props: Props) => {
           <Text fontSize={'2xl'} color={'black'}>
             {title}
           </Text>
+          <Box>
+            <Text fontSize={'12'} color={'grey'}>
+              {date}
+            </Text>
+          </Box>
         </Box>
         <Box flexWrap={'wrap'} display={'flex'} height={200} width={400}>
           <List
             maxWidth={250}
             // border="1px solid green"
-            display="flex"
+            // display="flex"
             flexWrap="wrap"
+            overflow={'scroll'}
           >
             {body.map((line, index) => {
               return (
-                <ListItem flexWrap="wrap">
+                <ListItem mt={5} flexWrap="wrap">
                   <Text color={'black'}>{line + '\n'}</Text>
                 </ListItem>
               )
             })}
           </List>
         </Box>
-        <Box border={'1px solid orange'}>
+
+        <Box
+          display={'flex'}
+          flexDirection={'row'}
+          alignItems={'flex-end'}
+          justifyContent={'space-between'}
+        >
+          <Image width={50} height={100} src={'/BottomLeft.png'} />
           <Box as="span" color="gray.600" fontSize="sm">
-            <Text color={'black'}>{date}</Text>
+            <Text fontFamily={'Allura'} color={'black'}>
+              {truncateHash(account)}
+            </Text>
           </Box>
         </Box>
       </Box>
     </MotionBox>
   )
+}
+
+export function truncateHash(hash: string, length = 38): string {
+  return hash.replace(hash.substring(6, length), '...')
 }
 
 export default WritingCard

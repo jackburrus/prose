@@ -57,6 +57,14 @@ export const Head = ({
         href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;500&display=swap"
         rel="stylesheet"
       />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap"
+        rel="stylesheet"
+      ></link>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Allura&display=swap"
+        rel="stylesheet"
+      ></link>
     </NextHead>
   )
 }

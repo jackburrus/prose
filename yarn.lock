@@ -1906,6 +1906,11 @@
     "@ethersproject/properties" "^5.5.0"
     "@ethersproject/strings" "^5.5.0"
 
+"@fontsource/arizonia@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/arizonia/-/arizonia-4.5.0.tgz#029c727729942f7e566a0beade14e781e66c7582"
+  integrity sha512-DulhNMEvpFHiBE854/fHTu9cBu1T3TXlk2WaaRbho1LKRWq3KbiR9H6tesFcCdfSWZpthIQccT1MRJvyqIOWkw==
+
 "@hapi/accept@5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@hapi/accept/-/accept-5.0.2.tgz#ab7043b037e68b722f93f376afb05e85c0699523"
