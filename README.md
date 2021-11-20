@@ -3,7 +3,7 @@
 <br />
 <h1>
 <p align="center">
-  <img src="../prose/packages/frontend/public/Logo.png" alt="Logo" >
+  <img src="./public/Logo.png" alt="Logo" >
 
 </h1>
 
