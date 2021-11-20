@@ -62,7 +62,7 @@ const MyWorkPage = (props: Props) => {
           {allMintedNfts.map((nft, index) => {
             const listOfLines = nft.text.split('\n')
             const body = listOfLines.slice(1, -1)
-            console.log(nft)
+
             return (
               // <Box key={index}>
               //   <Text color={'black'}>{nft.metadata_uri}</Text>
@@ -75,6 +75,7 @@ const MyWorkPage = (props: Props) => {
                 }
                 body={body}
                 date={dayjs(nft.mint_date).format('D MMMM')}
+                etherscan={nft.transaction_hash}
               />
             )
           })}

@@ -51,7 +51,7 @@ const WritePage = (props: Props) => {
       ) as AlbumArtType
       try {
         const data = await contract.returnMany()
-        console.log(data)
+        // console.log(data)
       } catch (err) {
         console.log('Error: ', err)
       }
@@ -85,7 +85,7 @@ const WritePage = (props: Props) => {
     })
 
     setSubmittedToNFTPort(true)
-    console.log(data)
+
     setPlayAnimation(true)
     setTimeout(() => {
       setPlayAnimation(false)

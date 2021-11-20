@@ -2,24 +2,46 @@ import { Badge, Box, List, ListItem, Text } from '@chakra-ui/react'
 import React from 'react'
 import Image from 'next/image'
 import { StarIcon } from '@chakra-ui/icons'
+import { MotionBox } from '../pages/Write'
 interface Props {
   title: string
   text: string[]
   date: string
   body: string[]
+  etherscan: string
+}
+
+const hoverAnimation = {
+  onHover: {
+    scale: 0.95,
+    transition: {
+      duration: 0.1,
+    },
+  },
 }
 
 const WritingCard = (props: Props) => {
-  const { title, text, date, body } = props
+  const { title, text, date, body, etherscan } = props
+
   return (
-    <Box
+    <MotionBox
+      variants={hoverAnimation}
+      whileHover="onHover"
+      as={'a'}
+      href={'https://rinkeby.etherscan.io/tx/' + etherscan}
+      target={'_blank'}
+      style={{
+        cursor: 'pointer',
+      }}
+      boxShadow={
+        'rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;'
+      }
       maxW={'xs'}
-      borderWidth="1px"
-      borderColor="black"
-      borderRadius="lg"
       overflow="hidden"
+      height={400}
+      borderRadius={'3xl'}
     >
-      <Box p="6">
+      <Box p="6" height={400} border={'1px solid blue'}>
         <Box display="flex" alignItems="baseline">
           <Box
             color="gray.500"
@@ -60,20 +82,13 @@ const WritingCard = (props: Props) => {
             })}
           </List>
         </Box>
-        <Box>
-          {/* {property.formattedPrice} */}
+        <Box border={'1px solid orange'}>
           <Box as="span" color="gray.600" fontSize="sm">
             <Text color={'black'}>{date}</Text>
           </Box>
         </Box>
-
-        <Box display="flex" mt="2" alignItems="center">
-          <Box as="span" ml="2" color="gray.600" fontSize="sm">
-            {/* {property.reviewCount} reviews */}
-          </Box>
-        </Box>
       </Box>
-    </Box>
+    </MotionBox>
   )
 }
 

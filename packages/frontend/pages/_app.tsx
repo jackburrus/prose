@@ -17,6 +17,10 @@ import {
   useRecoilState,
   useRecoilValue,
 } from 'recoil'
+import { extendTheme } from '@chakra-ui/react'
+import type { Theme } from '@chakra-ui/theme'
+import { theme as chakraTheme } from '@chakra-ui/react'
+
 import { css, Global } from '@emotion/react'
 // scaffold-eth's INFURA_ID, SWAP IN YOURS FROM https://infura.io/dashboard/ethereum
 export const INFURA_ID = '460f40a260564ac4a4f4b3fffb032dad'
@@ -44,13 +48,24 @@ const config: Config = {
   },
 }
 
+const theme = extendTheme({
+  styles: {
+    global: {
+      // styles for the `body`
+      body: {
+        fontFamily: 'Raleway, sans-serif',
+      },
+    },
+  },
+})
+
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   const apolloClient = useApollo(pageProps)
   return (
     <RecoilRoot>
       <ApolloProvider client={apolloClient}>
         <DAppProvider config={config}>
-          <ChakraProvider>
+          <ChakraProvider theme={theme}>
             {/* <Global
               styles={css`
                 background-color: 'red';
