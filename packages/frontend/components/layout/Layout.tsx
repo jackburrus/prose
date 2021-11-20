@@ -79,12 +79,15 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
             justifyContent="space-between"
             py="8"
           >
-            <Flex py={[4, null, null, 0]}>
+            <Flex py={[4, null, null, 0]} align={'flex-end'}>
+              <Box mr={10} pb={2}>
+                <Image src={'/Logo.png'} width={130} height={50} />
+              </Box>
               <NextLink href="/" passHref>
                 <Link px="4" py="1">
                   <Text
                     fontSize={'3xl'}
-                    fontFamily="sans-serif"
+                    fontFamily="Raleway"
                     letterSpacing={'0.05em'}
                     color={router.pathname === '/' ? 'black' : 'grey'}
                   >
@@ -96,7 +99,7 @@ export const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
                 <Link px="4" py="1">
                   <Text
                     fontSize={'3xl'}
-                    fontFamily="sans-serif"
+                    fontFamily="Raleway"
                     letterSpacing={'0.05em'}
                     color={router.pathname === '/MyWork' ? 'black' : 'grey'}
                   >

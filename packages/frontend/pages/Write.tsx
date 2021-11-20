@@ -6,6 +6,7 @@ import { useRecoilState } from 'recoil'
 import { Lyrics } from '../recoil/atoms/lyrics'
 import { motion, useAnimation } from 'framer-motion'
 interface Props {}
+import Image from 'next/image'
 import { File, NFTStorage } from 'nft.storage'
 import { Box, BoxProps } from '@chakra-ui/layout'
 import SongTitleInput from '../components/SongTitle'
@@ -21,6 +22,7 @@ import axios from 'axios'
 import animationData from '../public/confetti.json'
 import { BsFillCheckCircleFill } from 'react-icons/bs'
 import { useToast } from '@chakra-ui/react'
+import { hoverAnimation } from '../components/SongCard'
 const WritePage = (props: Props) => {
   const [activeLyrics, setActiveLyrics] = useRecoilState(Lyrics)
   const toast = useToast()
@@ -32,6 +34,7 @@ const WritePage = (props: Props) => {
   const [submittedToIpfs, setSubmittedToIpfs] = useState(false)
   const [submittedToNFTPort, setSubmittedToNFTPort] = useState(false)
   const { account, chainId, library } = useEthers()
+  const [etherScanLink, setEtherScanLink] = useState('')
 
   const defaultAnimationOptions = {
     autoplay: true,
@@ -74,11 +77,12 @@ const WritePage = (props: Props) => {
         mint_to_address: account,
       }),
     }).then((res) => res.json())
+    setEtherScanLink(data.transaction_external_url)
     setSubmittedToIpfs(true)
     toast({
       title: 'Uploaded to NFT Port 🙌',
       description:
-        'Your writing has been uploaded to NFT Port and IPFS for everyone in the Galaxy to enjoy! Check it out on Polygon Scan',
+        'Your writing has been uploaded to NFT Port and IPFS for everyone in the Galaxy to enjoy! Check it out on Rinkeby',
       status: 'success',
       duration: 5000,
       isClosable: true,
@@ -265,31 +269,45 @@ const WritePage = (props: Props) => {
             </Button>
           </Box>
         </motion.div>
-        {/* <MotionBox
+        <MotionBox
           mt={50}
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
+          // initial={{ opacity: 0, y: -50 }}
+          // animate={{ opacity: 1, y: 0 }}
         >
           {submittedToIpfs && (
             <Box
-              // border={'1px solid red'}
+              as="a"
+              href={ipfsURL.replace('ipfs://', 'https://ipfs.io/ipfs/')}
               display={'flex'}
+              target="_blank"
               flexDirection="row"
               alignItems="center"
               mr={100}
               ml={100}
             >
-              <BsFillCheckCircleFill color={'green'} size={36} />
-              <Text
-                fontFamily="Raleway, sans-serif"
-                fontWeight="600"
-                fontSize="3xl"
-                color={'#66656D'}
-                ml={10}
+              <MotionBox
+                variants={hoverAnimation}
+                whileHover="onHover"
+                display={'flex'}
+                alignItems="center"
+                p={2}
+                pl={5}
+                pr={5}
+                borderRadius={'20'}
+                flexDirection="row"
+                bg={'#83739D'}
               >
-                {' '}
-                Submitted to IPFS!
-              </Text>
+                <Image src={'/IPFSLogo.png'} width={50} height={50} />
+                <Text
+                  fontFamily="Raleway, sans-serif"
+                  fontWeight="600"
+                  fontSize="3xl"
+                  color={'white'}
+                  ml={5}
+                >
+                  View on IPFS 🪐
+                </Text>
+              </MotionBox>
             </Box>
           )}
         </MotionBox>
@@ -299,7 +317,9 @@ const WritePage = (props: Props) => {
         >
           {submittedToNFTPort && (
             <Box
-              // border={'1px solid red'}
+              as="a"
+              target="_blank"
+              href={etherScanLink}
               display={'flex'}
               flexDirection="row"
               alignItems="center"
@@ -307,20 +327,32 @@ const WritePage = (props: Props) => {
               ml={100}
               mt={10}
             >
-              <BsFillCheckCircleFill color={'green'} size={36} />
-              <Text
-                fontFamily="Raleway, sans-serif"
-                fontWeight="600"
-                fontSize="3xl"
-                color={'#66656D'}
-                ml={10}
+              <MotionBox
+                variants={hoverAnimation}
+                whileHover="onHover"
+                display={'flex'}
+                alignItems="center"
+                p={2}
+                pl={5}
+                pr={5}
+                borderRadius={'20'}
+                flexDirection="row"
+                bg={'#83739D'}
               >
-                {' '}
-                Submitted to NFT Port!
-              </Text>
+                <Image src={'/etherscan.png'} width={50} height={50} />
+                <Text
+                  fontFamily="Raleway, sans-serif"
+                  fontWeight="600"
+                  fontSize="3xl"
+                  color={'white'}
+                  ml={5}
+                >
+                  View on Etherscan ⛓️
+                </Text>
+              </MotionBox>
             </Box>
           )}
-        </MotionBox> */}
+        </MotionBox>
       </Flex>
       {playAnimation && (
         <Box position={'fixed'} bottom={'0%'}>

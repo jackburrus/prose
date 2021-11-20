@@ -13,7 +13,7 @@ interface Props {
   etherscan: string
 }
 
-const hoverAnimation = {
+export const hoverAnimation = {
   onHover: {
     scale: 0.95,
     transition: {
