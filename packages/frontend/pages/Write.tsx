@@ -111,7 +111,7 @@ const WritePage = (props: Props) => {
       duration: 5000,
       isClosable: true,
     })
-    console.log(fileHash.data.image.href)
+    // console.log(fileHash.data.image.href)
     setIPFSurl(fileHash.data.image.href)
     setPlayAnimation(true)
     setTimeout(() => {
