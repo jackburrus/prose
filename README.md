@@ -1,86 +1,41 @@
-# 🏗 Scaffold-ETH
 
-> everything you need to build on Ethereum! 🚀
+<!-- LOGO -->
+<br />
+<h1>
+<p align="center">
+  <img src="../prose/packages/frontend/public/Logo.png" alt="Logo" >
 
-👀 [View the Live Demo](https://nextjs-scaffold-eth.vercel.app/)
+</h1>
 
-- [Next.js](https://nextjs.org)
-- [Typescript](https://www.typescriptlang.org/)
-- [Hardhat](https://hardhat.org/)
-- [TypeChain](https://github.com/ethereum-ts/TypeChain)
-- [Ethers.js](https://docs.ethers.io/v5/)
-- [useDApp](https://usedapp.io/)
-- [Chakra UI](https://chakra-ui.com/)
-- Linting with [ESLint](https://eslint.org/)
-- Formatting with [Prettier](https://prettier.io/)
+</p>
+<p align="center">
+  <a href="#about-the-project">About The Project</a> •
+  <a href="#stack">Stack</a> •
+  <a href="#credits">Credits</a>
 
-# 🏄‍♂️ Quick Start
+</p>
 
-Prerequisites: [Node](https://nodejs.org/en/download/) plus [Yarn](https://classic.yarnpkg.com/en/docs/install/) and [Git](https://git-scm.com/downloads)
 
-> clone/fork 🏗 scaffold-eth:
 
-```bash
-git clone --branch nextjs-typescript https://github.com/austintgriffith/scaffold-eth.git
-cd scaffold-eth
+## About The Project
+Prose is a text based NFT generation tool. Users can quickly jot down anything from song lyrics to poems, to shower thoughts. One button uploads them to IPFS or directly to Ethereum. Users can keep a catalog of they text-based NFT's on the "My Work" page and the link to Etherscan tx is available directly in the application. Prose is the go-to tool for text based NFT generation. You can be up and running in under 30 seconds and have your first NFT deployed to Ethereum in minutes.
 
-yarn install
 
-# Start up the Hardhat Network
-yarn chain
-```
 
-Here we just install the npm project's dependencies, and by running `yarn chain` we spin up an instance of Hardhat Network that you can connect to using MetaMask. In a different terminal in the same directory, run:
 
-```bash
-yarn deploy
-```
+## Stack
 
-This will deploy the contract to Hardhat Network. After this completes run:
+Name                          |  Usage
+----------------------------------|------------------------------------------------------------------------------------
+NFT.Storage            |  Used to store text data on IPFS
+NFTPort           |  Uploads text data to IPFS and Ethereum
+Chakra UI                 |  For style
 
-```bash
-yarn dev
-```
 
-This will start up the Next.js development server and your site will be available at http://localhost:3000/
 
-To interact with the local contract, be sure to switch your MetaMask Network to `Localhost 8545`
+## Credits
+- Created by Jack Burrus
 
-🔏 Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
-
-📝 Edit your frontend in `packages/frontend/pages/index.tsx`
-
-💼 Edit your deployment scripts in `packages/hardhat/scripts/deploy`
-
-📱 Open http://localhost:3000 to see the app
-
-# 📚 Documentation
-
-Documentation, tutorials, challenges, and many more resources, visit: [docs.scaffoldeth.io](https://docs.scaffoldeth.io)
-
-# 🔭 Learning Solidity
-
-📕 Read the docs: https://docs.soliditylang.org
-
-📚 Go through each topic from [solidity by example](https://solidity-by-example.org) editing `YourContract.sol` in **🏗 scaffold-eth**
-
-- [Primitive Data Types](https://solidity-by-example.org/primitives/)
-- [Mappings](https://solidity-by-example.org/mapping/)
-- [Structs](https://solidity-by-example.org/structs/)
-- [Modifiers](https://solidity-by-example.org/function-modifier/)
-- [Events](https://solidity-by-example.org/events/)
-- [Inheritance](https://solidity-by-example.org/inheritance/)
-- [Payable](https://solidity-by-example.org/payable/)
-- [Fallback](https://solidity-by-example.org/fallback/)
-
-📧 Learn the [Solidity globals and units](https://solidity.readthedocs.io/en/v0.6.6/units-and-global-variables.html)
-
-# 🛠 Buidl
-
-Check out all the [active branches](https://github.com/austintgriffith/scaffold-eth/branches/active), [open issues](https://github.com/austintgriffith/scaffold-eth/issues), and join/fund the 🏰 [BuidlGuidl](https://BuidlGuidl.com)!
-
-# 💬 Support Chat
-
-Join the telegram [support chat 💬](https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA) to ask questions and find others building with 🏗 scaffold-eth!
-
-🙏 Please check out our [Gitcoin grant](https://gitcoin.co/grants/2851/scaffold-eth) too!
+[![GitHub Badge](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jackburrus)
+[![Twitter Badge](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/jackburrus)
+[![LinkedIn Badge](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jamesburrus/)
